@@ -45,21 +45,35 @@
 
 </html>
 
+<style>
+
+    input[type='radio'] {
+        height: 20px;
+        width: 20px;
+        vertical-align: middle;
+    }
+
+    input[type='checkbox'] {
+        height: 20px;
+        width: 20px;
+        vertical-align: middle;
+    }
+
+</style>
+
 <script type="text/javascript">
 
     // Получаем ссылку
     const query_string = window.location.search;
 
     // И если она не пустая - вытаскиваем параметры
-    if (query_string.length != 0)
-    {
+    if (query_string.length != 0) {
         const url_params = new URLSearchParams(query_string);
         const download_type = url_params.get('download_type')
 
         // Ищем кнопку по имени. Если нашли - установим значение
         radio_button = document.getElementById(download_type);
-        if (radio_button)
-        {
+        if (radio_button) {
             radio_button.checked = true;
         }
     }
@@ -73,13 +87,12 @@
     tg.MainButton.text = "Save";
     tg.MainButton.show();
 
-    Telegram.WebApp.onEvent('mainButtonClicked', function ()
-    {
+    Telegram.WebApp.onEvent('mainButtonClicked', function () {
         const json_object = JSON.stringify(
-        {
-            download_type: document.querySelector('input[name="radio_group"]:checked').value,
-            as_document: document.getElementById('check_document').checked
-        });
+            {
+                download_type: document.querySelector('input[name="radio_group"]:checked').value,
+                as_document: document.getElementById('check_document').checked
+            });
 
         Telegram.WebApp.sendData(json_object);
         Telegram.WebApp.close();
