@@ -42,41 +42,44 @@
     </div>
 
     <!--Кнопка "Сохранить"-->
-    <button id="button_save" class="button">Save</button>
+    <!--<button id="button_save" class="button">Save</button>-->
 </body>
 
 </html>
 
 <script type="text/javascript">
 
-    let tg = window.Telegram.WebApp; //получаем объект webapp телеграма 
+    let tg = window.Telegram.WebApp; //получаем объект webapp телеграма
 
-    tg.expand(); //расширяем на все окно  
+    tg.expand(); //расширяем на все окно
 
-    tg.MainButton.text = "Changed Text"; //изменяем текст кнопки 
-    tg.MainButton.setText("Changed Text1"); //изменяем текст кнопки иначе
-    tg.MainButton.textColor = "#F55353"; //изменяем цвет текста кнопки
-    tg.MainButton.color = "#143F6B"; //изменяем цвет бэкграунда кнопки
-    tg.MainButton.setParams({ "color": "#143F6B" }); //так изменяются все параметры
+    tg.MainButton.text = "Save";
     tg.MainButton.show();
 
     // Обработчик кнопки сохранения
-    document.getElementById("button_save").addEventListener('click', function () {
-        // Получаем тип загрузки
-        let download_type = document.querySelector('input[name="radio_group"]:checked').value;
-        console.log(download_type);
+    //document.getElementById("button_save").addEventListener('click', function () {
+    //    // Получаем тип загрузки
+    //    let download_type = document.querySelector('input[name="radio_group"]:checked').value;
+    //    console.log(download_type);
 
-        // Флаг отправки файла как документа
-        let as_document = document.getElementById('check_document').checked;
+    //    // Флаг отправки файла как документа
+    //    let as_document = document.getElementById('check_document').checked;
 
-        if (as_document) {
-            //alert("checked");
-        }
-    });
+    //    if (as_document) {
+    //        //alert("checked");
+    //    }
+    //});
 
     Telegram.WebApp.onEvent('mainButtonClicked', function () {
-        tg.sendData("some string that we need to send");
-        //при клике на основную кнопку отправляем данные в строковом виде
+
+        let json_object =
+        {
+            "download_type": document.querySelector('input[name="radio_group"]:checked').value,
+            "as_document": document.getElementById('check_document').checked
+        };
+
+        //tg.sendData("some string that we need to send");
+        tg.sendData(json_object);
     });
 
 </script>
