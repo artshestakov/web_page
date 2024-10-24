@@ -72,14 +72,23 @@
 
     Telegram.WebApp.onEvent('mainButtonClicked', function () {
 
-        let json_object =
+        //let json_object =
+        //{
+        //    "download_type": document.querySelector('input[name="radio_group"]:checked').value,
+        //    "as_document": document.getElementById('check_document').checked
+        //};
+
+        const json_object = JSON.stringify(
         {
-            "download_type": document.querySelector('input[name="radio_group"]:checked').value,
-            "as_document": document.getElementById('check_document').checked
-        };
+            download_type: document.querySelector('input[name="radio_group"]:checked').value,
+            as_document: document.getElementById('check_document').checked
+        });
+
+        Telegram.WebApp.sendData(json_object);
+        Telegram.WebApp.close();
 
         //tg.sendData("some string that we need to send");
-        tg.sendData(json_object);
+        //tg.sendData(json_object);
     });
 
 </script>
